@@ -1,0 +1,51 @@
+REPLAY (original LIVE; no request sent)
+Replayed at: 2026-11-15T10:39:48.240690Z
+Original capture/creation dates are preserved below.
+
+REPLAY (original LIVE; no request sent) | requested 1; completed 1
+
+Attempt 1
+REPLAY (original LIVE; no request sent) | real_exchange
+Experiment Objective
+Observe an NTP UDP exchange and estimate relative clock offset from four timestamps.
+
+Inputs & Conditions
+Original result date: 2026-11-15T09:30:25.203822Z
+Source: Actual UDP NTP exchange; software timestamps
+  server: pool.ntp.org
+  timeout seconds: 3.0
+Server: 23.143.196.203:123 | v4 mode 4 | stratum 2 | 48 bytes
+
+Four NTP Timestamps
+  T1 Client transmission: 2026-11-15 09:30:25.125131000 UTC
+      Unix ns: 1794735025125131000
+  T2 Server reception: 2026-11-15 09:30:25.245506539 UTC
+      Unix ns: 1794735025245506539
+  T3 Server transmission: 2026-11-15 09:30:25.245533326 UTC
+      Unix ns: 1794735025245533326
+  T4 Client reception: 2026-11-15 09:30:25.203822000 UTC
+      Unix ns: 1794735025203822000
+
+Calculations
+  Estimated offset = ((T2 - T1) + (T3 - T4)) / 2; server minus client
+    = (120.375539 ms + 41.711326 ms) / 2 = 81.0434325 ms
+  Network RTT = (T4 - T1) - (T3 - T2)
+    = 78.691 ms - 0.026787 ms = 78.664213 ms
+
+Results
+  Estimated NTP offset: 81.0434325 ms
+  Network RTT: 78.664213 ms
+  True offset: unknown
+  Estimation error: unknown
+  Actual one-way delays are unknown; asymmetry can bias this estimate.
+
+Assumptions & Limitations
+  - Software timestamps include local scheduling uncertainty
+  - Unknown one-way path asymmetry; live ground truth unavailable
+  - Peer and originate checks are not authentication
+
+Conclusion
+Four timestamps estimate relative time; unknown path asymmetry and software timing limit accuracy.
+
+Descriptive batch summary (valid results only; not an accuracy bound)
+  1 valid; median offset 81.0434325 ms; minimum RTT 78.664213 ms; offset range 0 ms

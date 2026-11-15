@@ -1,0 +1,15 @@
+{
+  "schema_version": "1",
+  "scenarios": [
+    {"id":"symmetric-low","experiment":"network_delay","source":"simulation","defined_at_utc":"2026-11-15T10:22:02.187245Z","purpose":"20/20 ms delays: 40 ms RTT with zero model bias","parameters":{"preset":"symmetric-low"}},
+    {"id":"symmetric-high","experiment":"network_delay","source":"simulation","defined_at_utc":"2026-11-15T10:22:02.187245Z","purpose":"80/80 ms delays: higher RTT still leaves zero model bias","parameters":{"preset":"symmetric-high"}},
+    {"id":"asymmetric-forward","experiment":"network_delay","source":"simulation","defined_at_utc":"2026-11-15T10:22:02.187245Z","purpose":"60/20 ms delays: offset estimate has +20 ms bias","parameters":{"preset":"asymmetric-forward"}},
+    {"id":"asymmetric-reverse","experiment":"network_delay","source":"simulation","defined_at_utc":"2026-11-15T10:22:02.187245Z","purpose":"20/60 ms delays: offset estimate has -20 ms bias","parameters":{"preset":"asymmetric-reverse"}},
+    {"id":"sync-symmetric","experiment":"clock_sync","source":"simulation","defined_at_utc":"2026-11-15T10:22:02.187245Z","purpose":"Correct +120 ms virtual error to zero under symmetric delay","parameters":{"client_offset_ms":"120","forward_ms":"20","reverse_ms":"20"}},
+    {"id":"sync-asymmetric-forward","experiment":"clock_sync","source":"simulation","defined_at_utc":"2026-11-15T10:22:02.187245Z","purpose":"A biased correction leaves +20 ms virtual residual","parameters":{"client_offset_ms":"120","forward_ms":"60","reverse_ms":"20"}},
+    {"id":"sync-asymmetric-reverse","experiment":"clock_sync","source":"simulation","defined_at_utc":"2026-11-15T10:22:02.187245Z","purpose":"Reverse asymmetry leaves -20 ms virtual residual","parameters":{"client_offset_ms":"120","forward_ms":"20","reverse_ms":"60"}},
+    {"id":"sync-client-behind","experiment":"clock_sync","source":"simulation","defined_at_utc":"2026-11-15T10:22:02.187245Z","purpose":"A client behind reference needs a positive correction","parameters":{"client_offset_ms":"-120","forward_ms":"20","reverse_ms":"20"}},
+    {"id":"sync-zero-asymmetric","experiment":"clock_sync","source":"simulation","defined_at_utc":"2026-11-15T10:22:02.187245Z","purpose":"An initially aligned virtual clock can gain asymmetric bias","parameters":{"client_offset_ms":"0","forward_ms":"60","reverse_ms":"20"}},
+    {"id":"captured-public-ntp","experiment":"real_exchange","source":"live","purpose":"Offline replay of the genuine P1.3 capture; never a new public probe","recording_resource":"p1.3-public-ntp.json"}
+  ]
+}

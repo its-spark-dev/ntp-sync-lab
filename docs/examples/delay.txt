@@ -1,0 +1,48 @@
+SIMULATION | network_delay
+Experiment Objective
+Distinguish true offset, estimated offset, estimation error, and network RTT.
+
+Inputs & Conditions
+Original result date: 2026-11-15T10:39:48.283113Z
+Source: Deterministic synthetic delay model; no network measurement
+  true offset: 100 ms
+  forward delay: 60 ms
+  reverse delay: 20 ms
+  server processing: 5 ms
+  reference unix: 2023-11-14 22:13:20.000000000 UTC
+      Unix ns: 1700000000000000000
+  preset id: asymmetric-forward
+
+Four NTP Timestamps
+  T1 Client transmission: 2023-11-14 22:13:19.900000000 UTC
+      Unix ns: 1699999999900000000
+  T2 Server reception: 2023-11-14 22:13:20.060000000 UTC
+      Unix ns: 1700000000060000000
+  T3 Server transmission: 2023-11-14 22:13:20.065000000 UTC
+      Unix ns: 1700000000065000000
+  T4 Client reception: 2023-11-14 22:13:19.985000000 UTC
+      Unix ns: 1699999999985000000
+
+Calculations
+  Estimated offset = ((T2 - T1) + (T3 - T4)) / 2; server minus client
+    = (160 ms + 80 ms) / 2 = 120 ms
+  Network RTT = (T4 - T1) - (T3 - T2)
+    = 85 ms - 5 ms = 80 ms
+
+Results
+  Estimated NTP offset: 120 ms
+  Network RTT: 80 ms
+  Known model true offset: 100 ms
+  Estimation error = estimate - truth: 20 ms
+
+Assumptions & Limitations
+  - The server is an ideal reference within this controlled simulation
+  - Clocks have equal rates and a constant server-minus-client offset
+  - Forward and reverse delays are fixed configured values, not Internet observations
+  - Server processing time is known and constant
+  - No packet loss, jitter, oscillator drift, or clock correction is modeled
+  - Symmetric delay introduces no offset-estimation bias under these assumptions
+  - Actual public NTP exchanges do not reveal true clock offset or true one-way delays
+
+Conclusion
+Asymmetric delay creates positive offset-estimation bias; RTT and estimation error are different quantities

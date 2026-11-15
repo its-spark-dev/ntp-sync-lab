@@ -1,0 +1,48 @@
+{
+  "assumptions": [
+    "The server is an ideal reference within this controlled simulation",
+    "Clocks have equal rates and a constant server-minus-client offset",
+    "Forward and reverse delays are fixed configured values, not Internet observations",
+    "Server processing time is known and constant",
+    "No packet loss, jitter, oscillator drift, or clock correction is modeled",
+    "Symmetric delay introduces no offset-estimation bias under these assumptions",
+    "Actual public NTP exchanges do not reveal true clock offset or true one-way delays"
+  ],
+  "created_at_utc": "2026-11-15T10:39:48.283113Z",
+  "data": {
+    "client_elapsed_ns": "85000000",
+    "conclusion": "Asymmetric delay creates positive offset-estimation bias; RTT and estimation error are different quantities",
+    "estimated_offset_ns": "120000000",
+    "estimation_error_ns": "20000000",
+    "forward_delay_ns": "60000000",
+    "reverse_delay_ns": "20000000",
+    "round_trip_delay_ns": "80000000",
+    "server_processing_ns": "5000000",
+    "timestamps": {
+      "t1_unix_ns": "1699999999900000000",
+      "t2_unix_ns": "1700000000060000000",
+      "t3_unix_ns": "1700000000065000000",
+      "t4_unix_ns": "1699999999985000000"
+    },
+    "true_offset_ns": "100000000"
+  },
+  "experiment": "network_delay",
+  "parameters": {
+    "forward_delay_ns": "60000000",
+    "preset_id": "asymmetric-forward",
+    "reference_unix_ns": "1700000000000000000",
+    "reverse_delay_ns": "20000000",
+    "server_processing_ns": "5000000",
+    "true_offset_ns": "100000000"
+  },
+  "provenance": {
+    "description": "Deterministic synthetic delay model; no network measurement",
+    "model": "constant-offset-equal-rate",
+    "model_version": "1",
+    "preset_id": "asymmetric-forward"
+  },
+  "result_id": "8ca881e466c04f3895d4c9c6accef642",
+  "schema_version": "1",
+  "source": "simulation",
+  "warnings": []
+}

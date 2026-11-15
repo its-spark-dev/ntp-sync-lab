@@ -1,0 +1,62 @@
+SIMULATION | clock_sync
+Experiment Objective
+Use a modeled NTP estimate to step a virtual clock and inspect the residual error.
+
+Inputs & Conditions
+Original result date: 2026-11-15T10:39:48.323883Z
+Source: Deterministic virtual clock step model; no OS synchronization or network measurement
+  initial client error: 120 ms
+  forward delay: 60 ms
+  reverse delay: 20 ms
+  server processing: 5 ms
+  reference unix: 2023-11-14 22:13:20.000000000 UTC
+      Unix ns: 1700000000000000000
+  mode: step
+
+Four NTP Timestamps
+  T1 Client transmission: 2023-11-14 22:13:20.120000000 UTC
+      Unix ns: 1700000000120000000
+  T2 Server reception: 2023-11-14 22:13:20.060000000 UTC
+      Unix ns: 1700000000060000000
+  T3 Server transmission: 2023-11-14 22:13:20.065000000 UTC
+      Unix ns: 1700000000065000000
+  T4 Client reception: 2023-11-14 22:13:20.205000000 UTC
+      Unix ns: 1700000000205000000
+
+Calculations
+  Estimated offset = ((T2 - T1) + (T3 - T4)) / 2; server minus client
+    = (-60 ms + -140 ms) / 2 = -100 ms
+  Network RTT = (T4 - T1) - (T3 - T2)
+    = 85 ms - 5 ms = 80 ms
+
+Results
+  Estimated NTP offset: -100 ms
+  Network RTT: 80 ms
+  Known model true offset: -120 ms
+  Estimation error = estimate - truth: 20 ms
+  Initial client-minus-reference error: 120 ms
+  Applied virtual step = estimated offset: -100 ms
+  Final residual client error: 20 ms
+  Common reference instant: 2023-11-14 22:13:20.085000000 UTC
+      Unix ns: 1700000000085000000
+  Virtual time before: 2023-11-14 22:13:20.205000000 UTC
+      Unix ns: 1700000000205000000
+  Virtual time after:  2023-11-14 22:13:20.105000000 UTC
+      Unix ns: 1700000000105000000
+  Step timeline: measurement_start -> before_correction -> after_correction
+  Before/after share one reference instant. Only virtual time changes.
+
+Assumptions & Limitations
+  - The reference/server clock is ideal within this controlled simulation
+  - Client and reference clocks have equal rates and constant offset during the exchange
+  - One-way delays and server processing are fixed configured values, not observed Internet
+    delays
+  - No packet loss, jitter, or oscillator drift is modeled
+  - One instantaneous step changes only virtual client time after the modeled exchange
+  - Before and after correction share the same reference instant; sequence orders the step
+  - Clock offset is a time difference; drift is a rate difference and is not estimated
+  - Live NTP does not reveal known true offset or individual one-way delays
+  - This educational step is not full NTP clock discipline or operating-system synchronization
+
+Conclusion
+Asymmetric measurement bias remains as virtual client error; the host clock is unchanged
