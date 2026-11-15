@@ -1,231 +1,230 @@
-# ntp-sync-lab
+# NTP Sync Lab
 
-Interactive NTP clock synchronization lab with real-time measurements, packet visualization, and clock correction simulations.
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![MIT License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![CLI available](https://img.shields.io/badge/Interface-CLI-475569)](#quick-start)
+[![Offline examples](https://img.shields.io/badge/Examples-Offline-0f766e)](#quick-review-commands)
 
-Current scope: **Phase 1, P1.7 backend validation complete; awaiting review**.
-The package provides immutable timestamp/result models, exact four-timestamp
-calculations, version-1 JSON serialization, an integer NTP timestamp codec, and
-pure request construction, response parsing/validation, UDP/DNS adapters, clock
-capture, guarded measurements, and bounded sequential measurement batches.
-The deterministic delay engine provides four presets and controlled sweeps.
-The virtual clock engine applies a modeled offset estimate as an exact step.
-The standalone CLI runs all three experiments and validates, exports, and replays results.
-P1.7 verified 563 automated tests and 50 installed CLI acceptance checks.
-Start with the [team review bundle](docs/TEAM_REVIEW.md) and
-[validation report](docs/BACKEND_VALIDATION.md).
-Web development requires the later team review gate.
+**Explore how NTP estimates time, why network asymmetry affects accuracy, and what remains after a clock correction.**
 
-Use Python 3.11 or later. Create a local environment and install the package with
-its test dependencies (the runtime itself uses only the standard library):
+NTP Sync Lab is an educational Python application with three experiments:
+
+| Experiment | What you explore |
+| --- | --- |
+| Real NTP exchange | Inspect four timestamps from a genuine recorded exchange, or make an optional live request. |
+| Network delay | Compare symmetric and asymmetric paths with a known clock offset. |
+| Virtual clock correction | Apply the estimated offset and inspect the remaining clock error. |
+
+The standalone CLI is available now. The web interface is planned and has not
+been implemented. All five quick review commands below work **offline** and
+leave your operating-system clock unchanged.
+
+## Quick Start
+
+You need **Python 3.11 or later** and Git. The commands below use macOS/Linux
+shell syntax. If your Python executable is named `python3`, check that
+`python3 --version` reports 3.11+ and use it instead of `python3.11`.
 
 ```sh
+git clone https://github.com/its-spark-dev/ntp-sync-lab.git
+cd ntp-sync-lab
+
 python3.11 -m venv .venv
-.venv/bin/python -m pip install -e '.[test]'
-.venv/bin/python -m pytest -q
-```
-
-Both entry points use the same CLI, including help:
-
-```sh
-.venv/bin/ntp-sync-lab --help
-.venv/bin/python -m ntp_sync_lab --help
-```
-
-For the following examples, activate the environment first:
-
-```sh
 source .venv/bin/activate
-ntp-sync-lab scenarios list
-ntp-sync-lab replay --scenario captured-public-ntp
-ntp-sync-lab delay --preset asymmetric-forward
-python -m ntp_sync_lab sync --client-offset-ms 120 --forward-ms 60 --reverse-ms 20
+python -m pip install -e .
+
+ntp-sync-lab --help
 ```
 
-These commands are entirely offline. The first experiment replays the genuine
-P1.3 public capture with its original date and **REPLAY (original LIVE)** label;
-it sends no request. Delay/synchronization examples are labeled **SIMULATION**.
-The delay example estimates +120 ms from known +100 ms truth (error +20 ms).
-The virtual client starts +120 ms ahead, applies the modeled estimate -100 ms,
-and retains +20 ms residual. Both show why RTT and estimation error differ.
+The runtime uses only Python's standard library. Run the following examples
+from this activated environment. In a new terminal, return to the repository
+and run `source .venv/bin/activate` again.
 
-Every experiment prints objective, conditions/source, correctly owned T1–T4
-timestamps, formula substitutions, results, assumptions, and conclusion. Exact
-Unix-nanosecond values accompany UTC labels. Offset means **server minus client**;
-`--client-offset-ms` means **client minus reference**, with the opposite sign.
+If `ntp-sync-lab` is not found, use `python -m ntp_sync_lab` with the same
+arguments. For example:
 
-An actual public measurement requires an explicit command:
+```sh
+python -m ntp_sync_lab replay --scenario captured-public-ntp
+```
+
+Live measurements require POSIX file locking; Windows live support is not yet
+implemented. The documented setup and validation environment is macOS.
+
+## Quick Review Commands
+
+Run these commands one at a time. Start with **Inputs & Conditions**, then
+**Results** and **Conclusion**. The timestamps and worked calculations explain
+how each result was obtained.
+
+```sh
+# 1. Previously captured real NTP exchange
+ntp-sync-lab replay --scenario captured-public-ntp
+
+# 2. Symmetric delay
+ntp-sync-lab delay --preset symmetric-low
+
+# 3. Asymmetric delay
+ntp-sync-lab delay --preset asymmetric-forward
+
+# 4. Clock correction without residual error
+ntp-sync-lab sync --client-offset-ms 120 \
+  --forward-ms 20 --reverse-ms 20
+
+# 5. Clock correction with residual error
+ntp-sync-lab sync --client-offset-ms 120 \
+  --forward-ms 60 --reverse-ms 20
+```
+
+### What to look for
+
+| Command | Expected result | What it demonstrates |
+| --- | --- | --- |
+| **1 · Recorded exchange** | Estimated offset **+81.0434325 ms**; network RTT **78.664213 ms**; true offset and error **unknown**. | Four timestamps give an estimate; a live exchange does not reveal the true one-way delays or clock error. |
+| **2 · Symmetric delay** | True offset **+100 ms**; estimate **+100 ms**; error **0 ms**; RTT **40 ms**. | Equal forward/reverse delays produce an unbiased estimate in the ideal model. |
+| **3 · Asymmetric delay** | True offset **+100 ms**; estimate **+120 ms**; error **+20 ms**; RTT **80 ms**. | A 60/20 ms path biases the estimate by half the difference: **+20 ms**. |
+| **4 · Symmetric correction** | Initial client error **+120 ms**; correction **−120 ms**; residual **0 ms**. | The virtual clock aligns with the reference after correction. |
+| **5 · Asymmetric correction** | Initial client error **+120 ms**; correction **−100 ms**; residual **+20 ms**. | Measurement bias remains after correction; the virtual client is still ahead. |
+
+Command 1 shows **REPLAY (original LIVE; no request sent)**. It preserves a
+public NTP exchange captured on **2026-11-15 at 09:30:25.203822 UTC**; it does
+not contact a server now. Commands 2–5 show **SIMULATION**, using known inputs
+rather than public-server observations.
+
+Each experiment prints seven sections: objective, inputs/conditions, T1–T4,
+calculations, results, assumptions/limitations, and conclusion. To preview full
+output, see the [recorded exchange](docs/examples/replay-public.txt),
+[delay example](docs/examples/delay.txt), and
+[clock correction example](docs/examples/sync.txt).
+
+## Reading the Timestamps and Signs
+
+| Timestamp | Event | Clock |
+| --- | --- | --- |
+| T1 | Client sends the request | Client |
+| T2 | Server receives the request | Server |
+| T3 | Server sends the response | Server |
+| T4 | Client receives the response | Client |
+
+```text
+Estimated NTP offset = ((T2 − T1) + (T3 − T4)) / 2
+Network RTT          = (T4 − T1) − (T3 − T2)
+```
+
+**NTP offset means server minus client.** A positive estimate says the client
+is behind; adding that estimate advances the client clock.
+
+**Client error means client minus reference.** In commands 4–5, the virtual
+client starts **+120 ms ahead**, so its true NTP offset is **−120 ms**. Adding
+the estimated correction leaves either zero error or an asymmetric-path bias.
+The before/after virtual snapshots refer to the same reference instant.
+
+The model assumes clocks run at equal rates with fixed delays. Server processing
+time cancels from both equations. Estimated offset error is
+`(forward delay − reverse delay) / 2`; RTT alone does not determine accuracy.
+
+## Try More Comparisons
+
+```sh
+# Higher symmetric delay: RTT grows to 160 ms, offset error stays zero
+ntp-sync-lab delay --preset symmetric-high
+
+# Same 80 ms RTT, different asymmetry: errors −40, 0, +40 ms
+ntp-sync-lab delay --round-trip-ms 80 --sweep-points 3
+
+# Reverse the asymmetric path: correction −140 ms, residual −20 ms
+ntp-sync-lab sync --client-offset-ms 120 --forward-ms 20 --reverse-ms 60
+
+# Discover saved scenarios and command options
+ntp-sync-lab scenarios list
+ntp-sync-lab delay --help
+ntp-sync-lab sync --help
+```
+
+Sweeps show one worked example followed by a comparison table. JSON output
+retains every point and its timestamps.
+
+## Save Results and Replay Them
+
+```sh
+ntp-sync-lab delay --preset asymmetric-forward --format json --output artifacts/delay.json
+ntp-sync-lab replay --file artifacts/delay.json
+```
+
+`--format json` produces machine-readable stdout. `--output` always saves JSON,
+even with text stdout; its parent directory is created when needed. An existing
+file is protected unless you explicitly add `--overwrite`. Status messages go
+to stderr, keeping JSON stdout parseable.
+
+Schema-1 recordings store nanosecond timestamps and durations as decimal strings,
+preserving exact values. Unknown live truth/error is `null`. Replay validates
+the recording and retains the original source and capture date; it establishes
+internal consistency, not authenticity.
+
+## Optional: Make a Live NTP Request
+
+The quick review above needs no network access. To measure a real server:
 
 ```sh
 ntp-sync-lab measure --server pool.ntp.org --count 1 --timeout-seconds 3
 ```
 
-It uses the original safe measurement service. Startup, help, scenarios, delay,
-sync, and replay never resolve or probe public servers. Do not rapidly rerun a
-measurement or change polling-state paths to bypass the 64-second minimum.
-An explicitly requested batch (`--count 3 --interval-seconds 64`) may take more
-than two minutes, longer after timeouts; Ctrl-C preserves completed attempts.
-DNS is outside the UDP timeout. The demo runbook recommends a single preflighted
-live request plus offline material rather than waiting for a batch on stage.
+Look for **LIVE**, the responding server, T1–T4, estimated offset, and network
+RTT. The actual numbers depend on your machine and network; the saved example
+is not an expected live result. True offset and estimation error remain unknown.
+If UDP is blocked, resolution fails, or a response is unsupported, the CLI
+reports that outcome. Choose replay explicitly to continue offline.
 
-More controlled offline comparisons:
+Public requests have a **minimum 64-second destination cooldown**, persisted
+across cooperating local CLI invocations. Timeouts increase backoff; a server
+control response blocks that target for policy review. Do not delete polling
+state or change its location to force another request. DNS and local filesystem
+operations are outside the UDP response timeout. See the
+[interoperability report](docs/INTEROPERABILITY.md) for the original capture.
 
-```sh
-ntp-sync-lab delay --preset symmetric-high
-ntp-sync-lab delay --true-offset-ms 100 --forward-ms 20 --reverse-ms 60 --processing-ms 5
-ntp-sync-lab delay --round-trip-ms 80 --sweep-points 9
-ntp-sync-lab delay --preset symmetric-low --increments-ms 0 60
-```
-
-Sweeps print one worked example and a complete metric comparison table. All
-point quartets remain available in JSON. Presets cannot be mixed with custom
-base values; fixed-RTT mode excludes individual delays and equal-increase mode.
-Use `--reference-unix-ns` for an explicit modeled epoch. Units/bounds are listed
-in command help and enforced by the existing engine.
-
-Export and replay without losing precision or provenance:
+## Development and Validation
 
 ```sh
-ntp-sync-lab delay --preset asymmetric-forward --format json --output artifacts/delay.json
-ntp-sync-lab replay --file artifacts/delay.json
-ntp-sync-lab replay --scenario symmetric-low --format json
-ntp-sync-lab sync --format text --output artifacts/sync.json
+# From the activated repository environment
+python -m pip install -e '.[test]'
+python -m pytest -ra
 ```
 
-`--format` controls stdout; `--output` always writes complete JSON. Paths refuse
-overwrite unless `--overwrite` is explicitly given. Output is written atomically;
-status/progress goes to stderr so JSON stdout stays parseable. If saving fails
-after a result exists, text mode still displays it; JSON errors retain it as
-`partial_result`. Do not repeat a public probe merely to recreate a failed export.
+P1.7 validation recorded **563 passing tests** in both the project environment
+and a clean wheel installation, plus **50 installed CLI acceptance checks**.
+Tests use deterministic fixtures and local UDP responders; they do not need
+public NTP servers. See the [validation report](docs/BACKEND_VALIDATION.md)
+for the tested environment, corrections, packaging checks, and evidence.
 
-Replay accepts the supported schema-1 experiment, series, batch, and replay
-envelopes. It validates structure/units, modeled results through the existing
-engines, live raw packets/quartets, and valid-only batch summaries. Original
-documents/capture dates/source labels remain unchanged inside a replay wrapper;
-the wrapper adds replay time and original source. Synthetic scenario timestamps
-are model/definition metadata, never network capture dates. Files are limited to
-1 MiB and nesting depth 12. Invalid versions, unknown fields, duplicate JSON
-keys, nonfinite values, or inconsistent calculations are rejected. Validation
-establishes internal consistency, not cryptographic authenticity of a capture.
+The mathematical core uses integer Unix nanoseconds and exact `Fraction`
+arithmetic. CLI, networking, and presentation remain outside the pure
+calculation layer. Only virtual time changes during synchronization experiments.
 
-Exit codes: **0** success, **2** invalid arguments/inputs, **3** live operational
-or partial-batch failure, **4** recording/file failure, **130** interruption.
-Help is always human-readable. The scenario catalog supports `--format json`;
-its catalog listing is not an experiment recording.
+### Current Limits
 
-See the [demo runbook](docs/DEMO_RUNBOOK.md) and generated examples:
-[recorded exchange](docs/examples/replay-public.txt),
-[delay](docs/examples/delay.txt), [virtual correction](docs/examples/sync.txt),
-and [replayable JSON](docs/examples/delay-asymmetric.json).
+- Supports the **48-byte NTPv4 client/server profile**; extensions and other
+  versions/modes are reported as unsupported. No NTS or cryptographic authentication.
+- Software timestamp precision does not establish measurement accuracy.
+  Matching peer/originate fields correlates a reply with its request.
+- Timestamp era inference requires a reference date within about 68 years.
+- Polling coordination is local, requires shared state and POSIX locks, and
+  assumes stable wall time across processes; it is not a distributed limiter.
+- Simulations use ideal equal-rate clocks and step correction. Drift, gradual
+  slewing, full NTP discipline, and host clock control are outside scope.
 
-`TimestampQuad` stores integer Unix nanoseconds. `calculate_exchange` returns
-server-minus-client offset as an exact `Fraction` of a nanosecond and network
-round-trip delay as integer nanoseconds. Positive offset means the client is
-behind the server. JSON timestamps and durations are decimal strings; unknown
-live true offset and estimation error are `null`.
+## Documentation
 
-`encode_timestamp` / `decode_timestamp` retain raw 32-bit NTP words and use integer
-nearest/ties-to-even rounding. Decoding requires an explicit reference date within
-half an era (about 68 years); an exactly ambiguous midpoint is rejected, while a
-wrong-era reference can silently choose a wrong date. Raw all-zero timestamps are
-mathematically decodable but reserved in packets, so request construction and
-required server timestamp validation reject that sentinel.
+| Document | Use it for |
+| --- | --- |
+| [Team review](docs/TEAM_REVIEW.md) | A hands-on checklist and expected results for all three experiments. |
+| [Demo runbook](docs/DEMO_RUNBOOK.md) | A focused five-command presentation with an estimated 3–4 minute narration budget. |
+| [Backend validation](docs/BACKEND_VALIDATION.md) | Test results, independent calculations, packaging, and remaining risks. |
+| [Architecture](docs/ARCHITECTURE.md) | Layer boundaries, protocol decisions, and data contracts. |
+| [Implementation plan](docs/IMPLEMENTATION_PLAN.md) | Development phases and review gates. |
 
-`build_request` creates a 48-byte NTPv4 mode-3 request. `parse_packet` preserves
-the base header and raw timestamps; `validate_response` takes that parsed packet,
-the request, numeric expected/actual peers, and locally captured T4. It checks
-correlation, server status/control replies, and timing, then reuses
-`calculate_exchange`. Peer/originate checks do not authenticate the sender.
-Trailing bytes and non-v4/mode-4 replies are reported as unsupported. The single
-P1.3 public probe successfully exercised this profile; see the
-[interoperability report](docs/INTEROPERABILITY.md) and its raw evidence.
+Backend validation is complete; team review and approval are required before
+FastAPI or React development. Human presentation timing and projector readability
+still need rehearsal.
 
-`measure_once(MeasurementConfig(server), ...)` returns a structured measurement
-or a domain error. `run_measurements` supports 1–10 sequential attempts, preserving
-failures and completed results on interruption. The default UDP timeout is 3 s;
-system DNS is outside that deadline. T1/T4 are application-level timestamps, not
-hardware packet timestamps. Significant wall/monotonic disagreement invalidates
-a sample. Descriptive offset variation does not establish synchronization accuracy.
+## License
 
-The local cooldown guard reserves each numeric destination before transmission,
-uses a minimum 64 s interval from send completion, persists 128/256/.../1024 s
-timeout backoff, and blocks a destination after a stratum-zero control response.
-It uses a small JSON record and brief POSIX file lock, shared across processes in
-`$XDG_CACHE_HOME/ntp-sync-lab/polling` or `~/.cache/ntp-sync-lab/polling`.
-Initial/crashed reservations retain a conservative 74 s cooldown. State corruption
-blocks live requests. Do not change/delete state to bypass cooldowns. Recovery
-after a control reply requires operator review of server policy; there is no
-automatic unblock command. macOS/Linux are supported by this guard; Windows fails
-closed pending a lock adapter. Cross-machine coordination is outside scope, and
-persisted timing assumes a stable wall clock across invocations.
-
-Tests use independently derived fixtures, fake time/transports, and real IPv4/IPv6
-loopback responders on unprivileged ports. A test audit hook blocks public DNS and
-UDP; no public Internet is required. See the
-[architecture](docs/ARCHITECTURE.md) and
-[implementation plan](docs/IMPLEMENTATION_PLAN.md) for the approved scope,
-assumptions, and review boundaries.
-
-The P1.4 experiment is entirely offline:
-
-```python
-from ntp_sync_lab.experiments.delay import (
-    fixed_rtt_sweep, make_delay_config, run_delay,
-)
-
-result = run_delay(make_delay_config(preset="asymmetric-forward"))
-assert result.true_offset_ns == 100_000_000
-assert result.metrics.estimated_offset_ns == 120_000_000
-assert result.estimation_error_ns == 20_000_000
-points = fixed_rtt_sweep(round_trip_ms="80", points=9)
-assert all(p.metrics.round_trip_delay_ns == 80_000_000 for p in points)
-```
-
-`DelayConfig` uses integer nanoseconds; `make_delay_config` accepts decimal
-millisecond strings, `Decimal`, or integers (no floats), with at most six
-fractional places. Presets and explicit custom inputs are mutually exclusive.
-`equal_increase_sweep` adds strictly increasing nonnegative increments to both
-one-way delays, showing RTT growth without changing existing asymmetry bias.
-All sweeps contain 2–200 points. Complete-endpoint fixed-RTT sweeps accept totals
-up to 2000 ms; arbitrary pairs can total 4000 ms within the per-direction bounds.
-Tiny totals can yield repeated rounded points while retaining the exact total.
-
-Every `DelayResult` contains the modeled quartet, shared `ExchangeMetrics`, known
-truth, estimation error, parameters, and assumptions. `delay_to_contract` and
-`delay_to_json` serialize schema version 1 with `source="simulation"`; callers
-supply `result_id` and `created_at_utc` separately from the fixed modeled epoch.
-No live clock reads, random IDs, sleeps, packets, or network observations are
-involved in the model; the CLI supplies export IDs and creation metadata.
-The model assumes equal-rate ideal clocks, constant offset, fixed
-delays/processing, and no loss, jitter, or drift. Its known truth does not imply
-that a public NTP exchange reveals true offset or one-way delays.
-
-The P1.5 virtual clock experiment reuses that same modeled measurement:
-
-```python
-from ntp_sync_lab.experiments.synchronization import make_sync_config, run_sync
-
-result = run_sync(make_sync_config(client_offset_ms="120", forward_ms="60", reverse_ms="20"))
-assert result.true_offset_ns == -120_000_000  # reference minus client
-assert result.applied_correction_ns == -100_000_000  # measured estimate, not -initial error
-assert result.final_client_error_ns == 20_000_000
-assert result.before.reference_unix_ns == result.after.reference_unix_ns
-```
-
-`SyncConfig` uses client-minus-reference initial error (default +120 ms) and the
-same bounds/decimal conversion as P1.4. `SyncResult` derives its own associated
-`DelayResult`; unrelated measurements, true offsets, and corrections cannot be
-injected as configuration. Snapshots preserve exact whole/half-nanosecond virtual
-time. The three-point timeline contains measurement start, before correction,
-and after correction. The latter two share the modeled response-reception
-reference instant; sequence numbers explicitly order a possibly backward step.
-No elapsed animation time, progressive slewing, or clock drift is involved.
-
-`sync_to_contract`/`sync_to_json` use schema version 1, `experiment="clock_sync"`,
-and explicit simulation provenance. Callers provide ID/creation time as for P1.4.
-Outputs include the nested modeled measurement, before/after clocks, correction
-event, backend-generated timeline, explanations, and assumptions. A positive
-step advances virtual time; a negative step moves it backward. The exact residual
-is `(forward_delay - reverse_delay)/2` under these ideal assumptions. It can be
-nonzero even when initial client error was zero. Only the virtual clock changes;
-the OS clock is never read or modified by this experiment. Full NTP discipline,
-drift modeling, public probes, and UI implementation remain outside the virtual model.
+[MIT](LICENSE) · Copyright © 2026 Sang Park
