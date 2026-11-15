@@ -1,0 +1,52 @@
+P1.7 actual local UDP responder on an unprivileged loopback port.
+Resolver injected into installed CLI; this is NOT a public NTP capture.
+LIVE below means an actual local UDP exchange, not trustworthy UTC.
+
+LIVE | requested 1; completed 1
+
+Attempt 1
+LIVE | real_exchange
+Experiment Objective
+Observe an NTP UDP exchange and estimate relative clock offset from four timestamps.
+
+Inputs & Conditions
+Original result date: 2026-11-15T11:00:17.053956Z
+Source: Actual UDP NTP exchange; software timestamps
+  server: 127.0.0.1
+  timeout seconds: 0.1
+  discontinuity threshold: 5 ms
+Server: 127.0.0.1:55249 | v4 mode 4 | stratum 1 | 48 bytes
+
+Four NTP Timestamps
+  T1 Client transmission: 2026-11-15 11:00:17.048138000 UTC
+      Unix ns: 1794740417048138000
+  T2 Server reception: 2026-11-15 11:00:17.048356000 UTC
+      Unix ns: 1794740417048356000
+  T3 Server transmission: 2026-11-15 11:00:17.053865000 UTC
+      Unix ns: 1794740417053865000
+  T4 Client reception: 2026-11-15 11:00:17.053956000 UTC
+      Unix ns: 1794740417053956000
+
+Calculations
+  Estimated offset = ((T2 - T1) + (T3 - T4)) / 2; server minus client
+    = (0.218 ms + -0.091 ms) / 2 = 0.0635 ms
+  Network RTT = (T4 - T1) - (T3 - T2)
+    = 5.818 ms - 5.509 ms = 0.309 ms
+
+Results
+  Estimated NTP offset: 0.0635 ms
+  Network RTT: 0.309 ms
+  True offset: unknown
+  Estimation error: unknown
+  Actual one-way delays are unknown; asymmetry can bias this estimate.
+
+Assumptions & Limitations
+  - Software timestamps include local scheduling uncertainty
+  - Unknown one-way path asymmetry; live ground truth unavailable
+  - Peer and originate checks are not authentication
+
+Conclusion
+Four timestamps estimate relative time; unknown path asymmetry and software timing limit accuracy.
+
+Descriptive batch summary (valid results only; not an accuracy bound)
+  1 valid; median offset 0.0635 ms; minimum RTT 0.309 ms; offset range 0 ms

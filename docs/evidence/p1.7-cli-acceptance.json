@@ -1,0 +1,775 @@
+{
+  "interpreter": "3.11.14 (main, Oct  9 2025, 16:16:55) [Clang 17.0.0 (clang-1700.6.3.2)]",
+  "package_file": "/private/var/folders/nk/45sf91b12957l1qgrj816l600000gn/T/ntp-sync-lab-p17-ohof1g8i/clean-venv/lib/python3.11/site-packages/ntp_sync_lab/__init__.py",
+  "installed_before_test_tools": [
+    "ntp-sync-lab"
+  ],
+  "checks": [
+    {
+      "entry": "console",
+      "args": [
+        "--help"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 14,
+      "seconds": 0.403
+    },
+    {
+      "entry": "console",
+      "args": [
+        "scenarios",
+        "list",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 112,
+      "seconds": 0.051
+    },
+    {
+      "entry": "console",
+      "args": [
+        "scenarios",
+        "list"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 21,
+      "seconds": 0.045
+    },
+    {
+      "entry": "console",
+      "args": [
+        "replay",
+        "--scenario",
+        "captured-public-ntp"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 51,
+      "seconds": 0.045
+    },
+    {
+      "entry": "console",
+      "args": [
+        "delay",
+        "--preset",
+        "symmetric-low",
+        "--increments-ms",
+        "0",
+        "60"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 55,
+      "seconds": 0.05
+    },
+    {
+      "entry": "console",
+      "args": [
+        "delay",
+        "--preset",
+        "asymmetric-forward"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 48,
+      "seconds": 0.049
+    },
+    {
+      "entry": "console",
+      "args": [
+        "sync"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 62,
+      "seconds": 0.049
+    },
+    {
+      "entry": "console",
+      "args": [
+        "sync",
+        "--forward-ms",
+        "60",
+        "--reverse-ms",
+        "20"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 62,
+      "seconds": 0.044
+    },
+    {
+      "entry": "console",
+      "args": [
+        "sync",
+        "--forward-ms",
+        "20",
+        "--reverse-ms",
+        "60"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 62,
+      "seconds": 0.047
+    },
+    {
+      "entry": "console",
+      "args": [
+        "replay",
+        "--scenario",
+        "captured-public-ntp",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 127,
+      "seconds": 0.048
+    },
+    {
+      "entry": "console",
+      "args": [
+        "delay",
+        "--true-offset-ms",
+        "-60000",
+        "--forward-ms",
+        "0.000001",
+        "--reverse-ms",
+        "0",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 48,
+      "seconds": 0.048
+    },
+    {
+      "entry": "console",
+      "args": [
+        "sync",
+        "--client-offset-ms",
+        "-0.000001",
+        "--forward-ms",
+        "0",
+        "--reverse-ms",
+        "0.000001",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 150,
+      "seconds": 0.049
+    },
+    {
+      "entry": "console",
+      "args": [
+        "delay",
+        "--round-trip-ms",
+        "0.000001",
+        "--sweep-points",
+        "3",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 179,
+      "seconds": 0.047
+    },
+    {
+      "entry": "console",
+      "args": [
+        "delay",
+        "--reference-unix-ns",
+        "1267650600228229401496703205376",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 48,
+      "seconds": 0.046
+    },
+    {
+      "entry": "console",
+      "args": [
+        "delay",
+        "--true-offset-ms",
+        "60001",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "network": "offline",
+      "stdout_lines": 8,
+      "seconds": 0.049
+    },
+    {
+      "entry": "console",
+      "args": [
+        "sync",
+        "--client-offset-ms",
+        "0.0000001",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "network": "offline",
+      "stdout_lines": 8,
+      "seconds": 0.05
+    },
+    {
+      "entry": "console",
+      "args": [
+        "sync",
+        "--format",
+        "json",
+        "--output",
+        "/var/folders/nk/45sf91b12957l1qgrj816l600000gn/T/ntp-sync-lab-p17-ohof1g8i/console-export.json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 150,
+      "seconds": 0.05
+    },
+    {
+      "entry": "console",
+      "args": [
+        "delay",
+        "--format",
+        "json",
+        "--output",
+        "/var/folders/nk/45sf91b12957l1qgrj816l600000gn/T/ntp-sync-lab-p17-ohof1g8i/console-export.json"
+      ],
+      "expected_exit": 4,
+      "actual_exit": 4,
+      "network": "offline",
+      "stdout_lines": 8,
+      "seconds": 0.045
+    },
+    {
+      "entry": "console",
+      "args": [
+        "replay",
+        "--file",
+        "/var/folders/nk/45sf91b12957l1qgrj816l600000gn/T/ntp-sync-lab-p17-ohof1g8i/console-export.json",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 160,
+      "seconds": 0.048
+    },
+    {
+      "entry": "console",
+      "args": [
+        "delay",
+        "--format",
+        "json",
+        "--output",
+        "/var/folders/nk/45sf91b12957l1qgrj816l600000gn/T/ntp-sync-lab-p17-ohof1g8i/console-export.json",
+        "--overwrite"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 48,
+      "seconds": 0.045
+    },
+    {
+      "entry": "console",
+      "args": [
+        "replay",
+        "--file",
+        "/var/folders/nk/45sf91b12957l1qgrj816l600000gn/T/ntp-sync-lab-p17-ohof1g8i/console-bad.json",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 4,
+      "actual_exit": 4,
+      "network": "offline",
+      "stdout_lines": 8,
+      "seconds": 0.044
+    },
+    {
+      "entry": "console",
+      "args": [
+        "measure",
+        "--server",
+        "fixture.invalid",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 3,
+      "actual_exit": 3,
+      "network": "dns-failure",
+      "stdout_lines": 24,
+      "seconds": 0.073
+    },
+    {
+      "entry": "console",
+      "args": [
+        "measure",
+        "--server",
+        "127.0.0.1",
+        "--count",
+        "1",
+        "--timeout-seconds",
+        "0.1"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "loopback",
+      "stdout_lines": 48,
+      "seconds": 0.068
+    },
+    {
+      "entry": "console",
+      "args": [
+        "measure",
+        "--server",
+        "127.0.0.1",
+        "--count",
+        "1",
+        "--timeout-seconds",
+        "0.1",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 3,
+      "actual_exit": 3,
+      "network": "loopback",
+      "stdout_lines": 30,
+      "seconds": 0.056
+    },
+    {
+      "entry": "console",
+      "args": [
+        "measure",
+        "--server",
+        "127.0.0.1",
+        "--count",
+        "1",
+        "--timeout-seconds",
+        "0.1",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 3,
+      "actual_exit": 3,
+      "network": "timeout",
+      "stdout_lines": 35,
+      "seconds": 0.168
+    },
+    {
+      "entry": "module",
+      "args": [
+        "--help"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 14,
+      "seconds": 0.053
+    },
+    {
+      "entry": "module",
+      "args": [
+        "scenarios",
+        "list",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 112,
+      "seconds": 0.045
+    },
+    {
+      "entry": "module",
+      "args": [
+        "scenarios",
+        "list"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 21,
+      "seconds": 0.045
+    },
+    {
+      "entry": "module",
+      "args": [
+        "replay",
+        "--scenario",
+        "captured-public-ntp"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 51,
+      "seconds": 0.046
+    },
+    {
+      "entry": "module",
+      "args": [
+        "delay",
+        "--preset",
+        "symmetric-low",
+        "--increments-ms",
+        "0",
+        "60"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 55,
+      "seconds": 0.051
+    },
+    {
+      "entry": "module",
+      "args": [
+        "delay",
+        "--preset",
+        "asymmetric-forward"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 48,
+      "seconds": 0.071
+    },
+    {
+      "entry": "module",
+      "args": [
+        "sync"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 62,
+      "seconds": 0.083
+    },
+    {
+      "entry": "module",
+      "args": [
+        "sync",
+        "--forward-ms",
+        "60",
+        "--reverse-ms",
+        "20"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 62,
+      "seconds": 0.048
+    },
+    {
+      "entry": "module",
+      "args": [
+        "sync",
+        "--forward-ms",
+        "20",
+        "--reverse-ms",
+        "60"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 62,
+      "seconds": 0.046
+    },
+    {
+      "entry": "module",
+      "args": [
+        "replay",
+        "--scenario",
+        "captured-public-ntp",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 127,
+      "seconds": 0.043
+    },
+    {
+      "entry": "module",
+      "args": [
+        "delay",
+        "--true-offset-ms",
+        "-60000",
+        "--forward-ms",
+        "0.000001",
+        "--reverse-ms",
+        "0",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 48,
+      "seconds": 0.044
+    },
+    {
+      "entry": "module",
+      "args": [
+        "sync",
+        "--client-offset-ms",
+        "-0.000001",
+        "--forward-ms",
+        "0",
+        "--reverse-ms",
+        "0.000001",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 150,
+      "seconds": 0.043
+    },
+    {
+      "entry": "module",
+      "args": [
+        "delay",
+        "--round-trip-ms",
+        "0.000001",
+        "--sweep-points",
+        "3",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 179,
+      "seconds": 0.043
+    },
+    {
+      "entry": "module",
+      "args": [
+        "delay",
+        "--reference-unix-ns",
+        "1267650600228229401496703205376",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 48,
+      "seconds": 0.045
+    },
+    {
+      "entry": "module",
+      "args": [
+        "delay",
+        "--true-offset-ms",
+        "60001",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "network": "offline",
+      "stdout_lines": 8,
+      "seconds": 0.051
+    },
+    {
+      "entry": "module",
+      "args": [
+        "sync",
+        "--client-offset-ms",
+        "0.0000001",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "network": "offline",
+      "stdout_lines": 8,
+      "seconds": 0.044
+    },
+    {
+      "entry": "module",
+      "args": [
+        "sync",
+        "--format",
+        "json",
+        "--output",
+        "/var/folders/nk/45sf91b12957l1qgrj816l600000gn/T/ntp-sync-lab-p17-ohof1g8i/module-export.json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 150,
+      "seconds": 0.045
+    },
+    {
+      "entry": "module",
+      "args": [
+        "delay",
+        "--format",
+        "json",
+        "--output",
+        "/var/folders/nk/45sf91b12957l1qgrj816l600000gn/T/ntp-sync-lab-p17-ohof1g8i/module-export.json"
+      ],
+      "expected_exit": 4,
+      "actual_exit": 4,
+      "network": "offline",
+      "stdout_lines": 8,
+      "seconds": 0.043
+    },
+    {
+      "entry": "module",
+      "args": [
+        "replay",
+        "--file",
+        "/var/folders/nk/45sf91b12957l1qgrj816l600000gn/T/ntp-sync-lab-p17-ohof1g8i/module-export.json",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 160,
+      "seconds": 0.043
+    },
+    {
+      "entry": "module",
+      "args": [
+        "delay",
+        "--format",
+        "json",
+        "--output",
+        "/var/folders/nk/45sf91b12957l1qgrj816l600000gn/T/ntp-sync-lab-p17-ohof1g8i/module-export.json",
+        "--overwrite"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "offline",
+      "stdout_lines": 48,
+      "seconds": 0.043
+    },
+    {
+      "entry": "module",
+      "args": [
+        "replay",
+        "--file",
+        "/var/folders/nk/45sf91b12957l1qgrj816l600000gn/T/ntp-sync-lab-p17-ohof1g8i/module-bad.json",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 4,
+      "actual_exit": 4,
+      "network": "offline",
+      "stdout_lines": 8,
+      "seconds": 0.043
+    },
+    {
+      "entry": "module",
+      "args": [
+        "measure",
+        "--server",
+        "fixture.invalid",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 3,
+      "actual_exit": 3,
+      "network": "dns-failure",
+      "stdout_lines": 24,
+      "seconds": 0.054
+    },
+    {
+      "entry": "module",
+      "args": [
+        "measure",
+        "--server",
+        "127.0.0.1",
+        "--count",
+        "1",
+        "--timeout-seconds",
+        "0.1",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "network": "loopback",
+      "stdout_lines": 118,
+      "seconds": 0.056
+    },
+    {
+      "entry": "module",
+      "args": [
+        "measure",
+        "--server",
+        "127.0.0.1",
+        "--count",
+        "1",
+        "--timeout-seconds",
+        "0.1",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 3,
+      "actual_exit": 3,
+      "network": "loopback",
+      "stdout_lines": 30,
+      "seconds": 0.053
+    },
+    {
+      "entry": "module",
+      "args": [
+        "measure",
+        "--server",
+        "127.0.0.1",
+        "--count",
+        "1",
+        "--timeout-seconds",
+        "0.1",
+        "--format",
+        "json"
+      ],
+      "expected_exit": 3,
+      "actual_exit": 3,
+      "network": "timeout",
+      "stdout_lines": 35,
+      "seconds": 0.164
+    }
+  ],
+  "description": "P1.7 fresh non-editable wheel acceptance; installed outside checkout; offline socket audit guards; loopback/injected failures only. Not a new public NTP measurement.",
+  "rehearsal": "Commands executed and output reviewed; 3\u20134 minute duration is a focused narration estimate, not measured human delivery."
+}
