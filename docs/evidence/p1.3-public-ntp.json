@@ -1,0 +1,117 @@
+{
+  "attempts": [
+    {
+      "error": null,
+      "number": 1,
+      "result": {
+        "assumptions": [
+          "Software timestamps include local scheduling uncertainty",
+          "Unknown one-way path asymmetry; live ground truth unavailable",
+          "Peer and originate checks are not authentication"
+        ],
+        "created_at_utc": "2026-11-15T09:30:25.203822Z",
+        "data": {
+          "client_elapsed_ns": "78691000",
+          "clock_capture": {
+            "clock_info": {
+              "implementation": "clock_gettime(CLOCK_REALTIME)",
+              "monotonic_resolution_ns": 42,
+              "wall_adjustable": true,
+              "wall_resolution_ns": 1001
+            },
+            "t1_monotonic_ns": "1223743155634458",
+            "t1_read_span_ns": "666",
+            "t1_wall_ns": "1794735025125131000",
+            "t4_monotonic_ns": "1223743234323958",
+            "t4_read_span_ns": "2916",
+            "t4_wall_ns": "1794735025203822000",
+            "wall_monotonic_discrepancy_ns": "1500"
+          },
+          "estimated_offset_ns": "81043432.5",
+          "estimation_error_ns": null,
+          "ignored_count": 0,
+          "ignored_datagrams": [],
+          "raw_timestamps": {
+            "originate": {
+              "fraction": 537433553,
+              "seconds": 4003723825
+            },
+            "receive": {
+              "fraction": 1054442555,
+              "seconds": 4003723825
+            },
+            "reference": {
+              "fraction": 817295086,
+              "seconds": 4003723763
+            },
+            "transmit": {
+              "fraction": 1054557604,
+              "seconds": 4003723825
+            }
+          },
+          "request_packet_hex": "23000600000000000000000000000000000000000000000000000000000000000000000000000000eea3fa31200895d1",
+          "response_packet_hex": "240206e50000020a0000000681861b7beea3f9f330b6eeeeeea3fa31200895d1eea3fa313ed9843beea3fa313edb45a4",
+          "round_trip_delay_ns": "78664213",
+          "server_header": {
+            "leap_indicator": 0,
+            "mode": 4,
+            "packet_length": 48,
+            "poll_exponent": 6,
+            "precision_exponent": -27,
+            "reference_id_hex": "81861b7b",
+            "root_delay_raw": 522,
+            "root_dispersion_raw": 6,
+            "stratum": 2,
+            "version": 4
+          },
+          "server_processing_ns": "26787",
+          "timestamps": {
+            "t1_unix_ns": "1794735025125131000",
+            "t2_unix_ns": "1794735025245506539",
+            "t3_unix_ns": "1794735025245533326",
+            "t4_unix_ns": "1794735025203822000"
+          },
+          "true_offset_ns": null
+        },
+        "experiment": "real_exchange",
+        "parameters": {
+          "server": "pool.ntp.org",
+          "timeout_seconds": 3.0
+        },
+        "provenance": {
+          "capture_time_utc": "2026-11-15T09:30:25.203822Z",
+          "description": "Actual UDP NTP exchange; software timestamps",
+          "local_peer": {
+            "address": "0.0.0.0",
+            "port": 54027,
+            "scope_id": 0
+          },
+          "peer": {
+            "address": "23.143.196.203",
+            "port": 123,
+            "scope_id": 0
+          },
+          "server": "pool.ntp.org"
+        },
+        "result_id": "19df53153d7f4677ad291c83bfde94a9",
+        "schema_version": "1",
+        "source": "live",
+        "warnings": []
+      }
+    }
+  ],
+  "experiment": "real_exchange",
+  "interrupted": false,
+  "requested_count": 1,
+  "schema_version": "1",
+  "server": "pool.ntp.org",
+  "source": "live",
+  "stop_reason": null,
+  "summary": {
+    "interpretation": "Descriptive variation only; true synchronization accuracy is unknown",
+    "median_offset_ns": "81043432.5",
+    "minimum_round_trip_delay_ns": "78664213",
+    "offset_range_ns": "0",
+    "valid_count": 1
+  }
+}
