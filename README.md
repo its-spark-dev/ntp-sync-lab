@@ -15,8 +15,8 @@ NTP Sync Lab is an educational Python application with three experiments:
 | Network delay | Compare symmetric and asymmetric paths with a known clock offset. |
 | Virtual clock correction | Apply the estimated offset and inspect the remaining clock error. |
 
-The standalone CLI is available now. The web interface is planned and has not
-been implemented. All five quick review commands below work **offline** and
+The standalone CLI and optional HTTP API are available now. The React interface
+has not been started. All five quick review commands below work **offline** and
 leave your operating-system clock unchanged.
 
 ## Quick Start
@@ -181,6 +181,21 @@ state or change its location to force another request. DNS and local filesystem
 operations are outside the UDP response timeout. See the
 [interoperability report](docs/INTEROPERABILITY.md) for the original capture.
 
+## Optional HTTP API (P3.1)
+
+```sh
+python -m pip install -e '.[web]'
+python -m uvicorn ntp_sync_lab.api.app:app --host 127.0.0.1 --port 8000 --workers 1
+```
+
+Open `http://127.0.0.1:8000/docs` to inspect and try the API. Opening the page
+or calling health/scenario/replay endpoints sends no NTP request. An explicit
+`POST /api/v1/measurements` does, using a configured server ID and the existing
+cooldown policy. Use one worker and loopback binding for this local lab.
+
+For setup, offline request examples, OpenAPI export, error handling, and tests,
+see the [API guide](docs/API.md). There is no React application yet.
+
 ## Development and Validation
 
 ```sh
@@ -221,8 +236,8 @@ calculation layer. Only virtual time changes during synchronization experiments.
 | [Architecture](docs/ARCHITECTURE.md) | Layer boundaries, protocol decisions, and data contracts. |
 | [Implementation plan](docs/IMPLEMENTATION_PLAN.md) | Development phases and review gates. |
 
-Backend validation is complete; team review and approval are required before
-FastAPI or React development. Human presentation timing and projector readability
+Backend validation and team approval are complete. P3.1 adds the optional API;
+React development remains a separate next step. Human presentation timing and projector readability
 still need rehearsal.
 
 ## License

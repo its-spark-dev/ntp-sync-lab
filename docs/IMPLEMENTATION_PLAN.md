@@ -1,6 +1,6 @@
 # NTP Sync Lab — Implementation Plan
 
-Status: architecture and P1.1–P1.6 approved. P1.7 validation and review preparation are complete, awaiting review. Current authorization ends at P1.7. Phase 2 review and web development have not begun.
+Status: Phase 2 team review and unanimous backend approval were reported by the project owner on 2026-11-23. G2 is satisfied. Current authorization is P3.1 (API) only; React/P3.2 and later work are not authorized in this task.
 
 The architecture, sign conventions, interfaces, proposed tree, CLI, and API contracts are defined in [ARCHITECTURE.md](ARCHITECTURE.md). Complete the phases in order. The standalone backend must work without FastAPI or React, and the team must review it before web work begins.
 
@@ -14,7 +14,7 @@ The architecture, sign conventions, interfaces, proposed tree, CLI, and API cont
 | 3 — API and React | Thin FastAPI adapter and one React app with three tabs | G3: verified integration and feature review |
 | 4 — Demo and portfolio | Rehearsal, fallbacks, four slides, documentation/screenshots | G4: classroom and portfolio readiness review |
 
-There is no implied approval from the existence of a roadmap or from successful tests. Architecture approval preserves the three experiments, shared Python calculations, CLI-first delivery, and mandatory team review before web development. The approved refinements require simple polling safeguards, early interoperability checks in P1.3, complete educational CLI explanations in P1.6, and step correction only in the required scope. Do not add unrelated production features. P1.1–P1.6 reviews are complete; current authorization ends at P1.7.
+There is no implied approval from the existence of a roadmap or from successful tests. Architecture approval preserves the three experiments, shared Python calculations, CLI-first delivery, and mandatory team review before web development. The approved refinements require simple polling safeguards, early interoperability checks in P1.3, complete educational CLI explanations in P1.6, and step correction only in the required scope. Do not add unrelated production features. P1.1–P1.6 reviews are complete; current authorization covers P3.1 only following owner-reported unanimous team approval.
 
 ## 2. Phase 0 — completed planning deliverable
 
@@ -33,7 +33,7 @@ Acceptance criteria:
 - The proposal distinguishes actual measurements, synthetic models, and recorded replays in every interface.
 - Phase 1 and pre-web review gates are explicit.
 
-**G0 — complete:** Architecture review initially authorized P1.1. P1.1–P1.6 have since passed review, and P1.7 validation/review preparation is now authorized. Phase 2 review and all web development remain outside current authorization.
+**G0 — complete:** Architecture review initially authorized P1.1. P1.1–P1.6 have since passed review, and P1.7 validation/review preparation is now authorized. Phase 2 approval is now reported complete; only P3.1 is authorized in this task.
 
 ## 3. Phase 1 — standalone Python backend and CLI
 
@@ -231,6 +231,8 @@ Use temporary directories for output and any justified minimal cooldown state in
 
 ## 5. Phase 2 — mandatory team review gate
 
+**G2 — satisfied (2026-11-23):** The project owner reports that teammates completed the review and unanimously approved the backend. No reviewer names, meeting minutes, or separately measured classroom timing are invented here. Current implementation authorization is P3.1 only.
+
 The team runs the CLI and reviews the bundle; reading source alone is insufficient. Review questions:
 
 1. Is a real UDP request sent to port 123, and are the four timestamps interpreted from the correct clocks and fields?
@@ -243,7 +245,7 @@ The team runs the CLI and reviews the bundle; reading source alone is insufficie
 
 Acceptance requires all required CLI capabilities, passing deterministic tests, an exercised socket path, reproducible scenarios, and explicit resolution of material correctness defects. If campus UDP is blocked, record the limitation and approve a labeled recording/model fallback; do not describe offline data as a successful public exchange.
 
-**G2 — STOP:** Do not create frontend scaffolding, add FastAPI, expose HTTP routes, or implement web visuals until the team explicitly approves web development. Address backend review findings within the approved backend scope first.
+**G2 approval recorded:** The prerequisite team review is complete. Implement P3.1 only in this task; do not create React/frontend scaffolding or begin P3.2 automatically.
 
 ## 6. Phase 3 — FastAPI and one React application
 
@@ -259,6 +261,16 @@ Acceptance criteria:
 - Health/scenario/replay requests perform no public networking.
 - Loopback binding, development proxy, and same-origin release setup work without permissive CORS.
 - TypeScript types come from or are checked against the actual API schema, including string timestamps and null truth.
+
+P3.1 implementation complete: optional `web`/`web-test` extras, eight `/api/v1`
+endpoints, strict boundary inputs and OpenAPI result models, one in-flight live
+worker with cancellation shielding, shared polling guard, configured server IDs,
+same-origin/local Host checks, and domain error mapping. Existing calculations,
+transport, serializers, and CLI remain unchanged. Validation: **69 API tests and
+632 total tests pass**, plus installed-wheel Uvicorn loopback HTTP smoke checks.
+No public probe was made. See [API.md](API.md) for exact setup/contracts, limits,
+and evidence. React/Vite proxy and same-origin frontend release validation are
+pending P3.2/P3.4; no frontend was scaffolded. Stop for P3.1 review.
 
 ### P3.2 — Shared shell and Real NTP Exchange tab
 
@@ -335,4 +347,4 @@ G4 acceptance:
 
 ## 9. Completion policy for this turn
 
-Complete P1.7 only: comprehensive backend review, independent mathematical/protocol verification, full tests, installed CLI/package/resource checks, demonstrated defect corrections, license metadata cleanup, offline CLI rehearsal, and a concise team review bundle. Report evidence, limits, and readiness; then stop for review. Do not begin Phase 2, web/charts, full discipline, drift, or slewing. No OS clock changes, new public probes, slides, commits, or pushes are part of this work.
+Record team approval and complete P3.1 API implementation/tests only. Stop for review after reporting results. React/P3.2, new public NTP probes, OS clock changes, commits, and pushes are outside this task.

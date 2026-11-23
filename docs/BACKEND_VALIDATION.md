@@ -1,5 +1,9 @@
 # P1.7 backend validation
 
+Follow-up (2026-11-23): the owner reports unanimous Phase 2 approval. P3.1 API
+work is documented in [API.md](API.md). The results below remain the historical
+P1.7 validation record, not a statement of the current approval boundary.
+
 **PASS — ready for hands-on team review.** No unresolved high-severity defect
 or CLI demonstration blocker was found after correction. This is a backend
 validation verdict, not team approval or authorization for web work.

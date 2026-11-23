@@ -1,9 +1,11 @@
 # Backend team review
 
-P1.7 verdict: **PASS — ready for hands-on backend review**. Team approval has
-not occurred. No API, React, slides, or operating-system clock changes are part
-of this delivery. Start here; supporting evidence is in
-[BACKEND_VALIDATION.md](BACKEND_VALIDATION.md).
+**Phase 2 approved — 2026-11-23.** The project owner reports that teammates
+completed review and unanimously agreed to proceed. The P1.7 backend verdict
+remains PASS. P3.1 API work is now authorized; React/P3.2 is not part of this task.
+The checklist below is retained as review context, not invented meeting minutes.
+See [API.md](API.md) for the current API and [BACKEND_VALIDATION.md](BACKEND_VALIDATION.md)
+for the historical P1.7 evidence.
 
 ## Install and start
 
@@ -130,7 +132,8 @@ the 5 ms default, and older strict loaders may reject the added field.
 - [ ] Do export/replay and deliberate failure messages work without source reading?
 - [ ] Are the documented protocol, polling, timing, and model limits acceptable?
 - [ ] Does a human rehearsal fit 3–4 minutes with readable projected output?
-- [ ] Approve the backend explicitly before authorizing FastAPI/React work.
+- [x] Backend approval reported by the project owner; P3.1 API authorized.
 
-Record reviewer names, concerns, and a decision during the later team gate.
-Passing tests and preparing this bundle do not constitute that approval.
+Team approval is recorded above from the owner’s report. Detailed reviewer names
+and meeting records were not supplied. The other checklist items remain as
+reference questions, rather than individually attested test results.
