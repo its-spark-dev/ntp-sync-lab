@@ -268,7 +268,10 @@ calculation layer. Only virtual time changes during synchronization experiments.
 | [Implementation plan](docs/IMPLEMENTATION_PLAN.md) | Development phases and review gates. |
 
 Backend validation and team approval are complete. P3.1 adds the optional API;
-P3.3 adds the delay and virtual-clock interfaces. P3.4 automated integrated acceptance passes; Phase 4 has not started.
+P3.3 adds the delay and virtual-clock interfaces. P3.4 automated integrated acceptance passes. Phase 4 presentation instructions
+are available in the [demo runbook](docs/DEMO_RUNBOOK.md) and
+[presentation checklist](docs/PRESENTATION_CHECKLIST.md); slides and physical
+classroom rehearsal remain pending.
 See the [integration report](docs/INTEGRATION_VALIDATION.md) for the 649 Python,
 40 frontend, and 56 browser checks and remaining manual verification. Human presentation timing and projector readability
 still need rehearsal.

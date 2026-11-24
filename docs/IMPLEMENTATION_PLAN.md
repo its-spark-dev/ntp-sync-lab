@@ -1,6 +1,6 @@
 # NTP Sync Lab — Implementation Plan
 
-Status: P3.3 is approved. P3.4 automated integrated acceptance is complete (PASS), awaiting owner review. Current authorization ends at P3.4. Phase 4 has not started.
+Status: P3.4 is approved. Phase 4 documentation preparation is authorized and complete for this task: demo sequence, startup/preflight/reset, and offline alternatives. Slides, physical rehearsal, commits, and pushes are outside this task; G4 is not complete.
 
 The architecture, sign conventions, interfaces, proposed tree, CLI, and API contracts are defined in [ARCHITECTURE.md](ARCHITECTURE.md). Complete the phases in order. The standalone backend must work without FastAPI or React, and the team must review it before web work begins.
 
@@ -14,7 +14,7 @@ The architecture, sign conventions, interfaces, proposed tree, CLI, and API cont
 | 3 — API and React | Thin FastAPI adapter and one React app with three tabs | G3: verified integration and feature review |
 | 4 — Demo and portfolio | Rehearsal, fallbacks, four slides, documentation/screenshots | G4: classroom and portfolio readiness review |
 
-There is no implied approval from the existence of a roadmap or from successful tests. Architecture approval preserves the three experiments, shared Python calculations, CLI-first delivery, and mandatory team review before web development. The approved refinements require simple polling safeguards, early interoperability checks in P1.3, complete educational CLI explanations in P1.6, and step correction only in the required scope. Do not add unrelated production features. P1.1–P1.6 reviews are complete; current authorization covers P3.4 only, following P3.3 review.
+There is no implied approval from the existence of a roadmap or from successful tests. Architecture approval preserves the three experiments, shared Python calculations, CLI-first delivery, and mandatory team review before web development. The approved refinements require simple polling safeguards, early interoperability checks in P1.3, complete educational CLI explanations in P1.6, and step correction only in the required scope. Do not add unrelated production features. P1.1–P1.6 reviews are complete; current authorization covers Phase 4 presentation documentation only, following P3.4 review.
 
 ## 2. Phase 0 — completed planning deliverable
 
@@ -33,7 +33,7 @@ Acceptance criteria:
 - The proposal distinguishes actual measurements, synthetic models, and recorded replays in every interface.
 - Phase 1 and pre-web review gates are explicit.
 
-**G0 — complete:** Architecture review initially authorized P1.1. P1.1–P1.7 and P3.1 have since passed review. Phase 2 approval and P3.1 review are complete; only P3.4 is authorized in this task.
+**G0 — complete:** Architecture review initially authorized P1.1. P1.1–P1.7 and P3.1 have since passed review. Phase 2 approval and P3.1 review are complete; only Phase 4 presentation documentation is authorized in this task.
 
 ## 3. Phase 1 — standalone Python backend and CLI
 
@@ -231,7 +231,7 @@ Use temporary directories for output and any justified minimal cooldown state in
 
 ## 5. Phase 2 — mandatory team review gate
 
-**G2 — satisfied (2026-11-23):** The project owner reports that teammates completed the review and unanimously approved the backend. No reviewer names, meeting minutes, or separately measured classroom timing are invented here. P3.1 was subsequently implemented and reviewed; current authorization is P3.4 only.
+**G2 — satisfied (2026-11-23):** The project owner reports that teammates completed the review and unanimously approved the backend. No reviewer names, meeting minutes, or separately measured classroom timing are invented here. P3.1 was subsequently implemented and reviewed; current authorization covers Phase 4 presentation documentation only.
 
 The team runs the CLI and reviews the bundle; reading source alone is insufficient. Review questions:
 
@@ -245,7 +245,7 @@ The team runs the CLI and reviews the bundle; reading source alone is insufficie
 
 Acceptance requires all required CLI capabilities, passing deterministic tests, an exercised socket path, reproducible scenarios, and explicit resolution of material correctness defects. If campus UDP is blocked, record the limitation and approve a labeled recording/model fallback; do not describe offline data as a successful public exchange.
 
-**G2 approval recorded:** The prerequisite team review is complete. P3.1 and P3.2 are complete and reviewed; P3.3 was implemented and approved. P3.4 integrated acceptance is now authorized; Phase 4 remains outside this task.
+**G2 approval recorded:** The prerequisite team review is complete. P3.1 and P3.2 are complete and reviewed; P3.3 was implemented and approved. P3.4 integrated acceptance was completed and approved; Phase 4 documentation only is now authorized.
 
 ## 6. Phase 3 — FastAPI and one React application
 
@@ -331,10 +331,19 @@ types, formatting, shared CLI/API cooldown, exact result parity, three-tab
 state/reset isolation, controlled failures, and local-only replay were checked.
 A reproduced cached connection-status defect was fixed without changing design.
 See [INTEGRATION_VALIDATION.md](INTEGRATION_VALIDATION.md) for evidence and
-remaining manual/environment limits. G3 evidence is ready for owner review;
-Phase 4 is not authorized or started.
+remaining manual/environment limits. The owner subsequently approved P3.4;
+Phase 4 documentation only is now authorized, as scoped below.
 
 ## 7. Phase 4 — integration, presentation, and portfolio
+
+**Current slice:** documentation only. The user authorized the demonstration
+sequence, offline alternatives, startup, preflight, and reset instructions.
+[DEMO_RUNBOOK.md](DEMO_RUNBOOK.md) and
+[PRESENTATION_CHECKLIST.md](PRESENTATION_CHECKLIST.md) provide them. The five
+CLI fallback cases were verified with all socket operations prohibited; expected
+results match. No slides or new public probe were produced. Actual classroom
+spoken/projected rehearsal and G4 completion remain outstanding. The later tasks
+below are roadmap items, not permission to execute them in this turn.
 
 Tasks:
 
@@ -377,7 +386,8 @@ G4 acceptance:
 
 ## 9. Completion policy for this turn
 
-Complete P3.4 integrated acceptance only. Preserve current design, correct
-reproduced defects with regressions, and report test evidence/limits. Stop for
-owner review. Do not start Phase 4, make public probes, change the host clock,
-commit, or push.
+Prepare Phase 4 presentation documentation only. Document the actual web/CLI
+sequence, expected results, local build/startup, preflight, offline fallback,
+reset, and stop procedures. Verify links and offline example commands. Do not
+create slides, claim a human rehearsal, make public probes, modify application
+design/code or the OS clock, commit, or push. Stop after reporting the documents.
