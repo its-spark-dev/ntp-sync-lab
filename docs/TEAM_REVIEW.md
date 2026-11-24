@@ -2,7 +2,8 @@
 
 **Phase 2 approved — 2026-11-23.** The project owner reports that teammates
 completed review and unanimously agreed to proceed. The P1.7 backend verdict
-remains PASS. P3.1 API work is now authorized; React/P3.2 is not part of this task.
+remains PASS. P3.1 was implemented and reviewed; P3.2 shell/Real NTP Exchange is now authorized.
+The other two frontend experiments are outside the current task.
 The checklist below is retained as review context, not invented meeting minutes.
 See [API.md](API.md) for the current API and [BACKEND_VALIDATION.md](BACKEND_VALIDATION.md)
 for the historical P1.7 evidence.

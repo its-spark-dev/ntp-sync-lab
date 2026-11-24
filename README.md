@@ -2,7 +2,7 @@
 
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![MIT License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![CLI available](https://img.shields.io/badge/Interface-CLI-475569)](#quick-start)
+[![CLI available](https://img.shields.io/badge/Interface-CLI%20%2B%20Web-475569)](#quick-start)
 [![Offline examples](https://img.shields.io/badge/Examples-Offline-0f766e)](#quick-review-commands)
 
 **Explore how NTP estimates time, why network asymmetry affects accuracy, and what remains after a clock correction.**
@@ -15,8 +15,8 @@ NTP Sync Lab is an educational Python application with three experiments:
 | Network delay | Compare symmetric and asymmetric paths with a known clock offset. |
 | Virtual clock correction | Apply the estimated offset and inspect the remaining clock error. |
 
-The standalone CLI and optional HTTP API are available now. The React interface
-has not been started. All five quick review commands below work **offline** and
+The standalone CLI, optional HTTP API, and React **Real NTP Exchange** interface
+are available now. The other two web experiment tabs are coming later. All five quick review commands below work **offline** and
 leave your operating-system clock unchanged.
 
 ## Quick Start
@@ -181,6 +181,35 @@ state or change its location to force another request. DNS and local filesystem
 operations are outside the UDP response timeout. See the
 [interoperability report](docs/INTEROPERABILITY.md) for the original capture.
 
+## Web Interface (P3.2)
+
+The React app has Safari-inspired horizontal tabs and translucent glass surfaces.
+Only **Real NTP Exchange** is implemented; the other two tabs show preparation
+notices. No measurement or replay starts automatically.
+
+Start the API in one terminal:
+
+```sh
+python -m pip install -e '.[web]'
+python -m uvicorn ntp_sync_lab.api.app:app --host 127.0.0.1 --port 8000 --workers 1
+```
+
+With Node.js 22.12+ installed, start the frontend in another terminal:
+
+```sh
+cd frontend
+npm ci
+npm run dev
+```
+
+Open **http://127.0.0.1:5173** and select **Load captured exchange** for the
+offline example. Inspect the source badge, offset, RTT, timestamp table, and
+formula details. **Measure once** explicitly makes a real NTP request and retains
+the existing cooldown policy. Playback is illustrative, not a packet trace.
+
+See the [frontend guide](docs/FRONTEND.md) for production build/same-origin
+serving, keyboard controls, API type generation, screenshots, and tests.
+
 ## Optional HTTP API (P3.1)
 
 ```sh
@@ -237,7 +266,8 @@ calculation layer. Only virtual time changes during synchronization experiments.
 | [Implementation plan](docs/IMPLEMENTATION_PLAN.md) | Development phases and review gates. |
 
 Backend validation and team approval are complete. P3.1 adds the optional API;
-React development remains a separate next step. Human presentation timing and projector readability
+The P3.2 React shell and Real NTP Exchange tab are complete; the other two
+experiment interfaces remain a separate next step. Human presentation timing and projector readability
 still need rehearsal.
 
 ## License

@@ -1,6 +1,6 @@
 # CLI demonstration runbook
 
-Status update (2026-11-23): Phase 2 team approval reported complete; P3.1 API only is authorized. The rehearsal evidence below remains the historical P1.7 CLI run. Commands below were
+Status update (2026-11-23): Phase 2 team approval reported complete; P3.2 shell/Real NTP Exchange is authorized. The rehearsal evidence below remains the historical P1.7 CLI run. Commands below were
 executed from a clean installed wheel with networking forbidden. No new public
 probe, slides, API, or frontend was created. Use [TEAM_REVIEW.md](TEAM_REVIEW.md)
 for the 10–15 minute hands-on review and
@@ -140,5 +140,5 @@ For individual examples see [recorded exchange](examples/replay-public.txt),
 [delay](examples/delay.txt), [synchronization](examples/sync.txt), and
 [replayable JSON](examples/delay-asymmetric.json). P1.7 resolved the prior
 license-table warning. Team approval is now recorded in [TEAM_REVIEW.md](TEAM_REVIEW.md).
-Spoken/projected timing has not been independently measured here; React work
-remains pending. The P3.1 API is documented in [API.md](API.md).
+Spoken/projected timing has not been independently measured here; The other two React experiment tabs
+remain pending; see [FRONTEND.md](FRONTEND.md) for the available first tab. The P3.1 API is documented in [API.md](API.md).

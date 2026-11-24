@@ -1,8 +1,9 @@
 # P3.1 — Local HTTP API
 
 Phase 2 review and unanimous backend approval were reported by the project
-owner on **2026-11-23**. P3.1 implements the API only. React, Vite, frontend
-scaffolding, and subsequent tasks have not been started. No commit or push is
+owner on **2026-11-23**. P3.1 implemented the API only. Follow-up: the authorized P3.2 React shell and
+Real NTP Exchange are now documented in [FRONTEND.md](FRONTEND.md); other
+experiment interfaces remain pending. No commit or push is
 part of this task.
 
 ## Install and run
@@ -21,9 +22,8 @@ Only explicitly submitting a measurement does so.
 
 Use **one process/worker**, bound to loopback. The app accepts localhost/127.0.0.1
 Host headers and rejects cross-origin mutation requests. CORS is not enabled.
-There is no authentication or public deployment support. React development
-proxy and production static-file serving are intentionally deferred to later
-phases; a future proxy must present a same-origin request and local Host header.
+There is no authentication or public deployment support. P3.2 provides a local development proxy and optional same-origin static serving;
+see [FRONTEND.md](FRONTEND.md). The proxy preserves foreign origins for rejection.
 
 ## Endpoints
 
@@ -175,8 +175,8 @@ deprecation. Other compatible dependency/platform combinations are not certified
 
 Concurrency cancellation is tested with an AnyIO cancellation scope; browser
 UI and navigation behavior will be checked during frontend integration.
-No new public NTP probe or OS clock modification occurred. P3.1 stops here,
-awaiting review; P3.2 React work has not started.
+No new public NTP probe or OS clock modification occurred. P3.1 was reviewed before P3.2 began; the historical validation counts here
+remain those of the API-only task. Current frontend evidence is in FRONTEND.md.
 
 Implementation references: [FastAPI concurrency](https://fastapi.tiangolo.com/async/)
 and [response models](https://fastapi.tiangolo.com/tutorial/response-model/).
