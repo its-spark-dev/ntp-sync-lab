@@ -15,8 +15,8 @@ NTP Sync Lab is an educational Python application with three experiments:
 | Network delay | Compare symmetric and asymmetric paths with a known clock offset. |
 | Virtual clock correction | Apply the estimated offset and inspect the remaining clock error. |
 
-The standalone CLI, optional HTTP API, and React **Real NTP Exchange** interface
-are available now. The other two web experiment tabs are coming later. All five quick review commands below work **offline** and
+The standalone CLI, optional HTTP API, and all three React experiment tabs
+are available now. All five quick review commands below work **offline** and
 leave your operating-system clock unchanged.
 
 ## Quick Start
@@ -181,11 +181,11 @@ state or change its location to force another request. DNS and local filesystem
 operations are outside the UDP response timeout. See the
 [interoperability report](docs/INTEROPERABILITY.md) for the original capture.
 
-## Web Interface (P3.2)
+## Web Interface (P3.3)
 
 The React app has Safari-inspired horizontal tabs and translucent glass surfaces.
-Only **Real NTP Exchange** is implemented; the other two tabs show preparation
-notices. No measurement or replay starts automatically.
+All three experiments are available. The two simulation tabs call the existing
+Python API and never contact public NTP servers. No experiment starts automatically.
 
 Start the API in one terminal:
 
@@ -207,8 +207,10 @@ offline example. Inspect the source badge, offset, RTT, timestamp table, and
 formula details. **Measure once** explicitly makes a real NTP request and retains
 the existing cooldown policy. Playback is illustrative, not a packet trace.
 
-See the [frontend guide](docs/FRONTEND.md) for production build/same-origin
-serving, keyboard controls, API type generation, screenshots, and tests.
+See the [simulation guide](docs/SIMULATIONS.md) for delay comparisons, correction
+steps, and expected results. See the [frontend guide](docs/FRONTEND.md) for
+production build/same-origin serving, keyboard controls, API type generation,
+screenshots, and tests.
 
 ## Optional HTTP API (P3.1)
 
@@ -266,8 +268,8 @@ calculation layer. Only virtual time changes during synchronization experiments.
 | [Implementation plan](docs/IMPLEMENTATION_PLAN.md) | Development phases and review gates. |
 
 Backend validation and team approval are complete. P3.1 adds the optional API;
-The P3.2 React shell and Real NTP Exchange tab are complete; the other two
-experiment interfaces remain a separate next step. Human presentation timing and projector readability
+P3.3 adds the delay and virtual-clock interfaces. P3.4 integrated acceptance
+has not started. Human presentation timing and projector readability
 still need rehearsal.
 
 ## License

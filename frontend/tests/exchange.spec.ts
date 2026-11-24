@@ -47,7 +47,7 @@ test('real API replay, exact data, playback and keyboard tabs', async ({ page },
   await page.getByRole('button', { name: 'Pause illustration' }).click();
   await page.getByRole('tab', { name: /Real NTP Exchange/ }).focus();
   await page.keyboard.press('ArrowRight');
-  await expect(page.getByRole('tabpanel')).toContainText('not implemented in P3.2');
+  await expect(page.getByRole('tabpanel')).toContainText('Delay setup');
   await page.keyboard.press('End');
   await expect(page.getByRole('tab', { name: /Clock Synchronization/ })).toBeFocused();
   await page.keyboard.press('Home');
@@ -108,9 +108,7 @@ test('cross-origin mutations are rejected, including through development proxy',
   });
   expect(response.status()).toBe(403);
 });
-test('empty and placeholder screens are accessible without experiment requests', async ({
-  page,
-}) => {
+test('empty experiment screens are accessible without experiment requests', async ({ page }) => {
   const posts: string[] = [];
   page.on('request', (r) => {
     if (r.method() === 'POST') posts.push(r.url());
@@ -163,6 +161,7 @@ test('presentation typography and wrapping at projector sizes', async ({ page },
     ).toBe(true);
     expect(
       await page
+        .getByRole('tabpanel')
         .locator('.primary-button')
         .evaluate((el) => parseFloat(getComputedStyle(el).fontSize)),
     ).toBeGreaterThanOrEqual(14);
@@ -172,7 +171,7 @@ test('presentation typography and wrapping at projector sizes', async ({ page },
       '.intro',
       '.tabs button',
     ]) {
-      const elements = page.locator(selector);
+      const elements = page.getByRole('tabpanel').locator(selector);
       for (let i = 0; i < (await elements.count()); i++)
         expect(await elements.nth(i).evaluate((el) => el.scrollWidth <= el.clientWidth + 1)).toBe(
           true,

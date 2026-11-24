@@ -1,6 +1,6 @@
 # NTP Sync Lab — Architecture
 
-Status: Phase 2 team approval and P3.1 API review are complete. P3.2 React shell and Real NTP Exchange are implemented, awaiting review. Authorization ends at P3.2; the other two experiment interfaces and P3.3/P3.4 have not begun.
+Status: P3.2 and its presentation design are approved. P3.3 delay and virtual-clock interfaces are implemented, awaiting review. Authorization ends at P3.3; P3.4 integrated acceptance has not started.
 
 ## 1. Purpose and repository findings
 
@@ -26,7 +26,7 @@ The project implements a small NTPv4 client exchange and educational models. It 
 | Frontend charting | Prefer a small SVG packet diagram and Recharts for ordinary plots; confirm suitability during Phase 3. | No frontend dependencies are installed during Phase 0 or 1. |
 | Deployment | Local CLI first, then local FastAPI and React. No database, cloud hosting, or multi-user service. | Revisit access controls only if scope changes. |
 
-Architecture review approved the three experiments, shared Python engine, CLI-first approach, and mandatory team review before web development. Polling must use the smallest reliable safeguards; real-server interoperability checks belong early in P1.3, after deterministic client validation. P1.6 gives every experiment a structured educational explanation separately from machine-readable JSON. Unrelated production features are outside scope. P1.1–P1.7 and Phase 2 team review have since been approved; current authorization covers P3.2 React shell and Real NTP Exchange only.
+Architecture review approved the three experiments, shared Python engine, CLI-first approach, and mandatory team review before web development. Polling must use the smallest reliable safeguards; real-server interoperability checks belong early in P1.3, after deterministic client validation. P1.6 gives every experiment a structured educational explanation separately from machine-readable JSON. Unrelated production features are outside scope. P1.1–P1.7 and Phase 2 team review have since been approved; current authorization covers P3.3 delay and virtual-clock interfaces only.
 
 ## 3. Layers and dependency direction
 
@@ -457,6 +457,6 @@ Preflight the actual classroom network and display. Prepare a genuine recording 
 
 ## 13. Approval boundaries
 
-G0, P1.1–P1.7, and the Phase 2 team review gate are complete by the owner-reported approval on 2026-11-23. P3.1 added the optional thin HTTP API over the existing engine. P3.2 now adds the React shell and Real NTP Exchange only; P3.3/P3.4 remain pending authorization. See [FRONTEND.md](FRONTEND.md) for execution and verification. No new public probe or OS clock change is part of this task. See [API.md](API.md) for API setup, contracts, and test evidence.
+G0, P1.1–P1.7, and the Phase 2 team review gate are complete by the owner-reported approval on 2026-11-23. P3.1 added the optional thin HTTP API over the existing engine. P3.2 added the React shell and Real NTP Exchange. P3.3 adds only the two modeled experiment interfaces using existing endpoints; P3.4 remains pending authorization. See [SIMULATIONS.md](SIMULATIONS.md) for controls and validation. See [FRONTEND.md](FRONTEND.md) for execution and verification. No new public probe or OS clock change is part of this task. See [API.md](API.md) for API setup, contracts, and test evidence.
 
 After the standalone Python engine and CLI are implemented and validated in Phase 1, stop at Phase 2 for team review of actual functionality and protocol correctness. FastAPI, React, frontend scaffolding, and web dependencies require explicit approval after that review. Phase 4 integrates the approved application, prepares the four-slide presentation and portfolio materials, and verifies the fallback demo. No commits or pushes are authorized by this plan.

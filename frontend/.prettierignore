@@ -4,3 +4,6 @@ src/generated/
 test-results/
 playwright-report/
 package-lock.json
+
+# Deterministic Python-generated test data
+src/__fixtures__/

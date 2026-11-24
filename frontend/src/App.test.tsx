@@ -105,7 +105,7 @@ it('switches Safari-style tabs by keyboard and preserves exchange state', async 
     'aria-selected',
     'true',
   );
-  expect(screen.getByRole('tabpanel')).toHaveTextContent('not implemented in P3.2');
+  expect(screen.getByRole('tabpanel')).toHaveTextContent('Delay setup');
   await user.keyboard('{End}');
   expect(screen.getByRole('tab', { name: /Clock Synchronization/ })).toHaveFocus();
   await user.keyboard('{Home}');

@@ -28,7 +28,7 @@ export class ApiError extends Error {
 export const object = (v: unknown): v is Record<string, unknown> =>
   typeof v === 'object' && v !== null && !Array.isArray(v);
 
-async function request(path: string, body?: unknown): Promise<unknown> {
+export async function request(path: string, body?: unknown): Promise<unknown> {
   let response: Response;
   try {
     response = await fetch(

@@ -22,6 +22,8 @@ import { object, type Observation } from './api';
 import { milliseconds, remainingSeconds, utc } from './format';
 import { useExchange } from './useExchange';
 import PacketDiagram from './PacketDiagram';
+import DelayLab from './DelayLab';
+import SyncLab from './SyncLab';
 
 const tabs = [
   { label: 'Real NTP Exchange', short: 'Exchange', icon: Globe2 },
@@ -278,7 +280,6 @@ export default function App() {
                 <item.icon size={17} strokeWidth={1.6} aria-hidden="true" />
                 <span className="tab-full">{item.label}</span>
                 <span className="tab-short">{item.short}</span>
-                {index > 0 && <span className="tab-coming">Soon</span>}
               </button>
             ))}
           </nav>
@@ -607,32 +608,24 @@ export default function App() {
               </div>
             </div>
           </div>
-          {[1, 2].map((index) => (
-            <section
-              key={index}
-              role="tabpanel"
-              id={`panel-${index}`}
-              aria-labelledby={`tab-${index}`}
-              hidden={tab !== index}
-              tabIndex={0}
-              className="coming-panel"
-            >
-              <div className="coming-icon">
-                {index === 1 ? (
-                  <ArrowDownUp size={34} strokeWidth={1.3} aria-hidden="true" />
-                ) : (
-                  <Clock3 size={34} strokeWidth={1.3} aria-hidden="true" />
-                )}
-              </div>
-              <p className="eyebrow">EXPERIMENT 0{index + 1} · COMING LATER</p>
-              <h1>{tabs[index].label}</h1>
-              <p>This experiment’s web interface is not implemented in P3.2.</p>
-              <button className="secondary-button" onClick={() => navigateTab(0)}>
-                Back to Real NTP Exchange
-                <ArrowRight size={16} aria-hidden="true" />
-              </button>
-            </section>
-          ))}
+          <section
+            role="tabpanel"
+            id="panel-1"
+            aria-labelledby="tab-1"
+            hidden={tab !== 1}
+            tabIndex={0}
+          >
+            <DelayLab />
+          </section>
+          <section
+            role="tabpanel"
+            id="panel-2"
+            aria-labelledby="tab-2"
+            hidden={tab !== 2}
+            tabIndex={0}
+          >
+            <SyncLab />
+          </section>
         </main>
         <footer className="app-footer">
           <span>

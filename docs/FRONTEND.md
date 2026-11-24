@@ -1,9 +1,10 @@
 # P3.2 — React shell and Real NTP Exchange
 
-Implemented on 2026-11-23 after explicit P3.2 authorization. One React application
-has three horizontal, Safari-inspired tabs. Only **Real NTP Exchange** is
-functional. Network Delay & Accuracy and Clock Synchronization display honest
-“coming later” panels; no simulation controls or requests were added for them.
+P3.2 implemented the shell and first tab, followed by the approved presentation
+design revision. P3.3 now adds the other two interfaces, using the same visual
+system and Python API. See [SIMULATIONS.md](SIMULATIONS.md) for their controls,
+expected results, and current validation. The P3.2 evidence below is retained as
+historical evidence; it does not authorize or claim P3.4 integrated acceptance.
 
 ## Run locally
 
@@ -134,7 +135,7 @@ install the browser once with `npx playwright install chromium`. API subprocesse
 load the existing loopback-only network audit guard. Browser measurement requests
 are intercepted fixtures. No public NTP request is used in the browser tests.
 
-Final results: **634 Python tests passed** (632 existing + 2 static-release
+Historical P3.2 results: **634 Python tests passed** (632 existing + 2 static-release
 boundary tests), **19 frontend unit/component tests passed**, and **16 Chromium
 browser tests passed** (8 workflows × development proxy and release). TypeScript
 production build, API type drift check, and Prettier check passed. The exercised
@@ -157,8 +158,8 @@ reduced motion; 390px mobile overflow; original JSON download; real API replay
 through development and release serving; and rejection of foreign origins.
 Axe checks cover mobile replay plus desktop empty and placeholder panels.
 
-Remaining scope: the other two experiment interfaces, their charts/controls, and
-full three-tab integration belong to P3.3/P3.4. No commit, push, new public probe,
+At the P3.2 checkpoint, simulation interfaces were deferred; they are now
+implemented in P3.3. Full integrated acceptance remains pending P3.4. No commit, push, new public probe,
 or host clock modification is part of P3.2.
 
 ## Reviewed screenshots
