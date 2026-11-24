@@ -182,3 +182,18 @@ it('respects persisted cooldown and control blocks from configuration', async ()
   expect(screen.getByText(/SERVER_CONTROL/)).toBeVisible();
   unmount();
 });
+it('does not report a cached API connection as healthy after connection loss', async () => {
+  setup();
+  const user = userEvent.setup();
+  await screen.findByText('API connected');
+  const fetch = vi.mocked(globalThis.fetch);
+  const original = fetch.getMockImplementation()!;
+  fetch.mockImplementation((...args) =>
+    String(args[0]).endsWith('/measurements')
+      ? Promise.reject(new TypeError('connection lost'))
+      : original(...args),
+  );
+  await user.click(screen.getByRole('button', { name: 'Measure once' }));
+  expect(await screen.findByRole('alert')).toHaveTextContent('API_UNAVAILABLE');
+  expect(screen.getByText('API unavailable', { exact: true })).toBeVisible();
+});

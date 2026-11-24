@@ -207,6 +207,7 @@ export default function App() {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const model = useExchange();
   const { observation, busy, error, config } = model;
+  const apiUnavailable = !!model.setupError || error?.code === 'API_UNAVAILABLE';
   const remaining = remainingSeconds(model.due, model.now);
   const server = config?.servers.find((s) => s.id === model.serverId);
   const blocked = server?.cooldown.state === 'blocked';
@@ -242,13 +243,9 @@ export default function App() {
               </span>
               <span>NTP Sync Lab</span>
             </a>
-            <span className={`api-status ${config ? 'connected' : ''}`}>
+            <span className={`api-status ${config && !apiUnavailable ? 'connected' : ''}`}>
               <span className="badge-dot" />
-              {config
-                ? 'API connected'
-                : model.setupError
-                  ? 'API unavailable'
-                  : 'Connecting to API'}
+              {apiUnavailable ? 'API unavailable' : config ? 'API connected' : 'Connecting to API'}
             </span>
           </div>
           <nav className="tabs" role="tablist" aria-label="Experiments">
